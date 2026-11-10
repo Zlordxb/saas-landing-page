@@ -4,7 +4,7 @@
 |-------|-------|
 | **Product** | BookFlow — Smart Booking Website |
 | **Version** | 1.0 (MVP) |
-| **Status** | Draft — in review |
+| **Status** | Approved (2026-11-10) |
 | **Last updated** | 2026-11-10 |
 | **Demo client** | A fictional premium dental clinic in Cairo, Egypt |
 | **Site language** | English |

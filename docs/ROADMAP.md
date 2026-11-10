@@ -8,8 +8,8 @@ How we build BookFlow, one phase at a time. Every phase ends with something that
 |:-----:|---------------|:------:|
 | 0 | Dev environment | 🟡 |
 | 1 | Planning (PRD) | ✅ |
-| 2 | Design system | ⬜ |
-| 3 | Project setup + Git & GitHub | ⬜ |
+| 2 | Design system | ✅ |
+| 3 | Project setup + Git & GitHub | 🟡 |
 | 4 | Layout & UI components | ⬜ |
 | 5 | Landing page + animations | ⬜ |
 | 6 | Services page | ⬜ |
@@ -36,16 +36,16 @@ How we build BookFlow, one phase at a time. Every phase ends with something that
 
 **You'll learn:** PRD, MVP, MoSCoW, user stories, acceptance criteria, sitemap, user flows.
 
-## Phase 2 — Design system
+## Phase 2 — Design system ✅
 **Goal:** a premium, consistent look before we build pages.
-- Clinic name, logo and brand personality
-- Color palette (brand, neutrals, success / warning / error) with accessible contrast
-- Fonts and type scale, spacing, corner radius, shadows
-- How buttons, inputs, cards and badges look
-- Landing page layout: wireframe, then design
+- [x] Brand: **Nefer Dental Studio**, the nfr hieroglyph on a faience tile
+- [x] Color palette (brand, neutrals, status colors) with WCAG AA contrast in light and dark
+- [x] Fonts and type scale (Fraunces + Figtree), spacing, radius, shadows, motion
+- [x] Components: buttons, inputs, time slots, calendar, cards, badges, dashboard rows
+- [x] Landing page layout: wireframe, then design (Design canvas "Nefer Landing Page")
 
-**Output:** `docs/DESIGN-SYSTEM.md` + a visual style guide
-**You'll learn:** design tokens, color basics, type scale, visual hierarchy, contrast.
+**Output:** [DESIGN-SYSTEM.md](./DESIGN-SYSTEM.md), [design/tokens.css](./design/tokens.css), [brand/](./brand/)
+**You'll learn:** design tokens, color scales, contrast, type scale, visual hierarchy.
 
 ## Phase 3 — Project setup
 **Goal:** a clean Next.js project, saved on GitHub.

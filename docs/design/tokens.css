@@ -1,0 +1,219 @@
+/*
+ * Nefer Dental Studio — design tokens (BookFlow demo)
+ *
+ * The single source of truth for colors, type, spacing, radius, shadows and motion.
+ * Plain CSS custom properties: every value has a name, and components use the names.
+ * Phase 3: we wire these into Tailwind CSS (@theme) in the Next.js project.
+ * Docs: ../DESIGN-SYSTEM.md
+ */
+
+:root {
+
+  /* Brand scale: faience (turquoise glaze) */
+  --faience-50: #eff9f8;
+  --faience-100: #def2ef;
+  --faience-200: #c2e5e1;
+  --faience-300: #9fd3ce;
+  --faience-400: #71b8b2;
+  --faience-500: #449b95;
+  --faience-600: #0b7a74;
+  --faience-700: #0b6461;
+  --faience-800: #044e4e;
+  --faience-900: #023a3b;
+  --faience-950: #022628;
+
+  /* Neutral scale: porcelain (light) to lapis ink (dark) */
+  --neutral-0: #ffffff;
+  --neutral-50: #f2f6f4;
+  --neutral-100: #e6ebe9;
+  --neutral-200: #d4dbd9;
+  --neutral-300: #b5c0bf;
+  --neutral-400: #7f9093;
+  --neutral-500: #62757d;
+  --neutral-600: #4e626e;
+  --neutral-700: #394f5c;
+  --neutral-800: #243d4b;
+  --neutral-900: #0f2b3a;
+  --neutral-950: #021827;
+
+  /* Accent scale: sandstone (decoration only, never text) */
+  --sand-50: #fdf6eb;
+  --sand-100: #f9ebd5;
+  --sand-200: #f1d9b3;
+  --sand-300: #e5c289;
+  --sand-400: #c79a4b;
+  --sand-500: #b38010;
+  --sand-600: #966a02;
+  --sand-700: #724f03;
+  --sand-800: #5a3e00;
+  --sand-900: #422d03;
+  --sand-950: #2d1d01;
+
+  /* Status scale: success (confirmed) */
+  --success-50: #f0faf3;
+  --success-100: #dff3e6;
+  --success-200: #c4e6d0;
+  --success-300: #a3d5b5;
+  --success-400: #78bb91;
+  --success-500: #4e9e70;
+  --success-600: #1f7a4c;
+  --success-700: #12673e;
+  --success-800: #03522e;
+  --success-900: #023c21;
+  --success-950: #022815;
+
+  /* Status scale: warning (pending) */
+  --warning-50: #fff5ec;
+  --warning-100: #fee9d5;
+  --warning-200: #f9d5b3;
+  --warning-300: #f0bc8a;
+  --warning-400: #dc9954;
+  --warning-500: #b86e00;
+  --warning-600: #a26209;
+  --warning-700: #7b4907;
+  --warning-800: #623903;
+  --warning-900: #492901;
+  --warning-950: #311a01;
+
+  /* Status scale: danger (errors, destructive actions) */
+  --danger-50: #fff4f2;
+  --danger-100: #ffe6e3;
+  --danger-200: #fed0c9;
+  --danger-300: #ffb0a6;
+  --danger-400: #f78275;
+  --danger-500: #de594e;
+  --danger-600: #c1352e;
+  --danger-700: #9e1e1b;
+  --danger-800: #800f0f;
+  --danger-900: #620406;
+  --danger-950: #450102;
+
+  /* Semantic roles (light theme). Components use THESE, not the scales. */
+  --bg: var(--neutral-50); /* Page background (porcelain). Body text on it is ink. */
+  --surface: var(--neutral-0); /* Cards, inputs, the calendar, menus. */
+  --surface-muted: var(--neutral-100); /* Alternate section bands, table headers, hover fill for ghost buttons. */
+  --line: var(--neutral-200); /* Hairlines: card borders and dividers. Decorative, not for form controls. */
+  --line-strong: var(--neutral-400); /* Borders of inputs, time slots and secondary buttons (3:1 against surface and bg). */
+  --ink: var(--neutral-900); /* Primary text on bg, surface and surface-muted. */
+  --ink-muted: var(--neutral-600); /* Secondary text, helper text and metadata on bg, surface and surface-muted. */
+  --ink-subtle: var(--neutral-500); /* Placeholders and disabled labels on surface only. */
+  --primary: var(--faience-600); /* The one primary action per view, selected day, active states. */
+  --primary-hover: var(--faience-700); /* Hover and pressed state of primary fills. */
+  --on-primary: #ffffff; /* Text and icons on primary and primary-hover fills. */
+  --primary-soft: var(--faience-100); /* Selected time slot fill, focus halo on inputs, soft highlights. */
+  --on-primary-soft: var(--faience-800); /* Text on primary-soft. */
+  --link: var(--faience-700); /* Inline links and text buttons on bg and surface. */
+  --focus: var(--faience-600); /* Keyboard focus ring color (3:1 on bg and surface). */
+  --accent: var(--sand-400); /* Sandstone decoration: rating stars, small ornaments. Never text. */
+  --hero-card: var(--faience-700); /* The glazed appointment card in the hero. The brand's one bold surface. */
+  --on-hero-card: var(--neutral-50); /* Text on hero-card, and the fill of the inverse button on it. */
+  --on-hero-card-muted: var(--faience-100); /* Secondary text on hero-card. */
+  --hero-card-line: var(--faience-300); /* Time-slot borders on hero-card (3:1). */
+  --pending-bg: var(--warning-50); /* Pending badge fill: a booking waiting for the owner. */
+  --pending-ink: var(--warning-800); /* Pending badge text, on pending-bg. */
+  --confirmed-bg: var(--success-50); /* Confirmed badge and success message fill. */
+  --confirmed-ink: var(--success-800); /* Confirmed badge and success text, on confirmed-bg. */
+  --cancelled-bg: var(--neutral-100); /* Cancelled badge fill. Deliberately quiet: cancelled needs no attention. */
+  --cancelled-ink: var(--neutral-700); /* Cancelled badge text, on cancelled-bg. */
+  --danger: var(--danger-700); /* Error text and invalid input borders on bg and surface. */
+  --danger-fill: var(--danger-600); /* Destructive button fill (Cancel booking in the dashboard). */
+  --on-danger: #ffffff; /* Text on danger-fill. */
+  --danger-soft: var(--danger-50); /* Error message fill; danger text reads on it. */
+  --demo-bg: var(--sand-100); /* The demo-project notice bar. */
+  --demo-ink: var(--sand-800); /* Text on demo-bg. */
+
+  /* Typography */
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-sans: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --text-display: 72px; --text-display--line-height: 76px; --text-display--font-weight: 400; --text-display--letter-spacing: -0.02em;
+  --text-h1: 48px; --text-h1--line-height: 54px; --text-h1--font-weight: 400; --text-h1--letter-spacing: -0.015em;
+  --text-h2: 36px; --text-h2--line-height: 42px; --text-h2--font-weight: 400; --text-h2--letter-spacing: -0.01em;
+  --text-h3: 24px; --text-h3--line-height: 30px; --text-h3--font-weight: 500;
+  --text-title: 21px; --text-title--line-height: 28px; --text-title--font-weight: 600;
+  --text-lead: 18px; --text-lead--line-height: 29px; --text-lead--font-weight: 400;
+  --text-body: 16px; --text-body--line-height: 26px; --text-body--font-weight: 400;
+  --text-button: 16px; --text-button--line-height: 24px; --text-button--font-weight: 600;
+  --text-label: 14px; --text-label--line-height: 20px; --text-label--font-weight: 500;
+  --text-small: 14px; --text-small--line-height: 22px; --text-small--font-weight: 400;
+  --text-caption: 12px; --text-caption--line-height: 16px; --text-caption--font-weight: 500; --text-caption--letter-spacing: 0.01em;
+
+  /* Spacing (4px base, same steps as Tailwind) */
+  --space-1: 4px; /* Icon to label gap. */
+  --space-2: 8px; /* Between time slots and badge groups. */
+  --space-3: 12px; /* Between a label, its input and its help text; related rows. */
+  --space-4: 16px; /* Input padding, compact card padding. */
+  --space-5: 20px; /* Page side gutter on phones. */
+  --space-6: 24px; /* Card padding, gap between cards. */
+  --space-8: 32px; /* Page side gutter on desktop, gap between form groups. */
+  --space-12: 48px; /* Space between a section heading and its content. */
+  --space-16: 64px; /* Vertical padding of a page section on phones. */
+  --space-28: 112px; /* Vertical padding of a page section on desktop. */
+
+  /* Radius: grows with the size of the object */
+  --radius-sm: 8px; /* Checkboxes, small tags, tooltips. */
+  --radius-md: 12px; /* Inputs, selects, textareas, alerts. */
+  --radius-lg: 20px; /* Cards: services, calendar, dashboard panels. */
+  --radius-xl: 28px; /* The hero appointment card and photos. */
+  --radius-full: 9999px; /* Buttons, time slots, badges, calendar days. */
+
+  /* Sizes */
+  --control-sm: 40px; /* Small buttons, calendar days, dashboard actions. */
+  --control-md: 48px; /* Default buttons and inputs. */
+  --control-lg: 56px; /* The hero call to action. */
+  --touch-target: 44px; /* Minimum tap area for anything interactive, time slots included. */
+  --container: 1200px; /* Max width of page content. */
+  --prose: 65ch; /* Max width of running text. */
+
+  /* Shadows: tinted with lapis ink, never plain grey */
+  --shadow-sm: 0 1px 2px #0f2b3a0f;
+  --shadow-md: 0 1px 2px #0f2b3a0d, 0 8px 24px -8px #0f2b3a1f;
+  --shadow-lg: 0 2px 4px #0f2b3a0a, 0 24px 48px -16px #0f2b3a2e;
+  --focus-ring: 0 0 0 2px #ffffff, 0 0 0 4px #0b7a74;
+
+  /* Motion: one easing curve, three durations */
+  --ease-glaze: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 150ms; /* hover, press */
+  --duration-base: 250ms; /* step changes, accordions */
+  --duration-slow: 500ms; /* the hero card's arrival, once */
+}
+
+/* Dark theme (a 'Could have' in the PRD): only the roles change, the scales stay the same. */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: var(--neutral-950);
+  --surface: #082533;
+  --surface-muted: #153141;
+  --line: #1e3b4a;
+  --line-strong: var(--neutral-500);
+  --ink: var(--neutral-50);
+  --ink-muted: var(--neutral-300);
+  --ink-subtle: var(--neutral-400);
+  --primary: var(--faience-400);
+  --primary-hover: var(--faience-300);
+  --on-primary: var(--neutral-950);
+  --primary-soft: var(--faience-900);
+  --on-primary-soft: var(--faience-100);
+  --link: var(--faience-300);
+  --focus: var(--faience-300);
+  --accent: var(--sand-300);
+  --hero-card: var(--faience-800);
+  --on-hero-card: var(--neutral-50);
+  --on-hero-card-muted: var(--faience-100);
+  --hero-card-line: var(--faience-400);
+  --pending-bg: #3c260e;
+  --pending-ink: var(--warning-200);
+  --confirmed-bg: #12301e;
+  --confirmed-ink: var(--success-200);
+  --cancelled-bg: #153141;
+  --cancelled-ink: var(--neutral-300);
+  --danger: var(--danger-300);
+  --danger-fill: var(--danger-400);
+  --on-danger: var(--neutral-950);
+  --danger-soft: #3f1917;
+  --demo-bg: #3a2b11;
+  --demo-ink: var(--sand-100);
+  --shadow-sm: 0 1px 2px #00000066;
+  --shadow-md: 0 8px 24px -8px #000000b3;
+  --shadow-lg: 0 24px 48px -16px #000000cc;
+  --focus-ring: 0 0 0 2px #082533, 0 0 0 4px #9fd3ce;
+}
