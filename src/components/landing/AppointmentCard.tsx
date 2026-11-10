@@ -9,10 +9,7 @@ import type { Service } from "@/data/services";
 import type { Availability } from "@/lib/booking/types";
 import { cn, formatDuration, formatPrice } from "@/lib/format";
 
-type State =
-  | { status: "loading" }
-  | { status: "error" }
-  | { status: "ready"; data: Availability };
+type State = { status: "loading" } | { status: "error" } | { status: "ready"; data: Availability };
 
 const MAX_SLOTS = 6;
 
@@ -58,7 +55,7 @@ export function AppointmentCard({ service }: { service: Service }) {
   return (
     <section
       aria-labelledby="next-free-times"
-      className="glaze rounded-xl bg-hero p-6 text-on-hero shadow-lg ring-1 ring-white/10"
+      className="rounded-xl bg-hero glaze p-6 text-on-hero shadow-lg ring-1 ring-white/10"
     >
       <div className="flex items-center justify-between gap-3 text-label font-medium text-on-hero-muted">
         <span id="next-free-times" className="inline-flex items-center gap-2">

@@ -16,13 +16,21 @@ const gallery: { photo: PhotoData; className: string; sizes: string }[] = [
     className: "col-span-2 aspect-[16/10] md:row-span-2 md:aspect-auto tile-dome-lg",
     sizes: "(min-width: 768px) 50vw, 100vw",
   },
-  { photo: photos.waiting, className: "aspect-square md:aspect-auto rounded-xl", sizes: "(min-width: 768px) 25vw, 50vw" },
+  {
+    photo: photos.waiting,
+    className: "aspect-square md:aspect-auto rounded-xl",
+    sizes: "(min-width: 768px) 25vw, 50vw",
+  },
   {
     photo: photos.consult,
     className: "aspect-square md:row-span-2 md:aspect-auto rounded-xl",
     sizes: "(min-width: 768px) 25vw, 50vw",
   },
-  { photo: photos.loupes, className: "col-span-2 aspect-[16/10] md:col-span-1 md:aspect-auto rounded-xl", sizes: "(min-width: 768px) 25vw, 100vw" },
+  {
+    photo: photos.loupes,
+    className: "col-span-2 aspect-[16/10] md:col-span-1 md:aspect-auto rounded-xl",
+    sizes: "(min-width: 768px) 25vw, 100vw",
+  },
 ];
 
 /**

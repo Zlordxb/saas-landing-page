@@ -24,7 +24,7 @@ export function PriceList({ services, total }: { services: Service[]; total: num
     <section id="treatments" aria-labelledby="treatments-title" className="py-16 md:py-24">
       <Container className="grid items-start gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
         <div className="sticky top-28 hidden lg:block">
-          <div className="relative aspect-[4/5] overflow-hidden bg-surface-muted tile-dome-lg">
+          <div className="relative aspect-[4/5] overflow-hidden tile-dome-lg bg-surface-muted">
             <AnimatePresence initial={false}>
               <motion.div
                 key={active.slug}
@@ -34,7 +34,10 @@ export function PriceList({ services, total }: { services: Service[]; total: num
                 transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                 className="absolute inset-0"
               >
-                <Photo photo={photoForService(active.slug)} sizes="(min-width: 1280px) 30rem, 40vw" />
+                <Photo
+                  photo={photoForService(active.slug)}
+                  sizes="(min-width: 1280px) 30rem, 40vw"
+                />
               </motion.div>
             </AnimatePresence>
             <p className="absolute bottom-4 left-4 rounded-full bg-surface/90 px-4 py-2 text-label font-semibold shadow-sm backdrop-blur">
@@ -63,7 +66,7 @@ export function PriceList({ services, total }: { services: Service[]; total: num
                     <Link
                       href={`/book?service=${service.slug}`}
                       className={cn(
-                        "rounded-sm font-display text-title font-medium transition-colors after:absolute after:inset-0 group-hover:text-link",
+                        "rounded-sm font-display text-title font-medium transition-colors group-hover:text-link after:absolute after:inset-0",
                         service.slug === active.slug && "lg:text-link",
                       )}
                     >

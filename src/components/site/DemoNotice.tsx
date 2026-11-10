@@ -8,8 +8,7 @@ export function DemoNotice() {
       role="note"
       className="bg-demo px-5 py-2.5 text-center text-label font-medium text-balance text-on-demo"
     >
-      Demo project. {clinic.name} is a fictional clinic, so bookings here are not real
-      appointments.
+      Demo project. {clinic.name} is a fictional clinic, so bookings here are not real appointments.
     </div>
   );
 }

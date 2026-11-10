@@ -32,7 +32,10 @@ export function VisitUs() {
               <Navigation aria-hidden="true" className="size-5" strokeWidth={1.75} />
               Get directions
             </a>
-            <a href={`tel:${normalizePhone(clinic.phone)}`} className={buttonStyles({ variant: "ghost", size: "lg" })}>
+            <a
+              href={`tel:${normalizePhone(clinic.phone)}`}
+              className={buttonStyles({ variant: "ghost", size: "lg" })}
+            >
               <Phone aria-hidden="true" className="size-5" strokeWidth={1.75} />
               {clinic.phone}
             </a>

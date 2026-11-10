@@ -57,7 +57,12 @@ export function Footer() {
           </summary>
           <p className="max-w-3xl pt-2">
             Photos from{" "}
-            <a href="https://unsplash.com" className="text-link underline" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://unsplash.com"
+              className="text-link underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Unsplash
             </a>{" "}
             by {photographers.join(", ")}.

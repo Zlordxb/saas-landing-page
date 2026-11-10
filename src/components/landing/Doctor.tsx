@@ -15,7 +15,7 @@ export function Doctor() {
             <Photo photo={photos.doctor} sizes="(min-width: 1024px) 28rem, 100vw" />
           </div>
           {/* A small glazed tile set into the photo's corner. */}
-          <p className="glaze absolute bottom-0 left-6 flex flex-col rounded-lg bg-primary px-5 py-4 text-on-primary shadow-lg">
+          <p className="absolute bottom-0 left-6 flex flex-col rounded-lg bg-primary glaze px-5 py-4 text-on-primary shadow-lg">
             <span className="font-display text-h2 leading-none font-medium tabular-nums">
               {doctor.years}
             </span>
@@ -31,7 +31,11 @@ export function Doctor() {
           <ul className="flex flex-col gap-2.5">
             {doctor.credentials.map((credential) => (
               <li key={credential} className="flex items-center gap-2.5">
-                <CircleCheck aria-hidden="true" className="size-5 shrink-0 text-primary" strokeWidth={1.75} />
+                <CircleCheck
+                  aria-hidden="true"
+                  className="size-5 shrink-0 text-primary"
+                  strokeWidth={1.75}
+                />
                 {credential}
               </li>
             ))}

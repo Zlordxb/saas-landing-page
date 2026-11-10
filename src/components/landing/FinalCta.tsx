@@ -9,7 +9,7 @@ export function FinalCta() {
   return (
     <section aria-labelledby="cta-title" className="pb-16 md:pb-24">
       <Container>
-        <div className="glaze grid overflow-hidden rounded-xl bg-hero text-on-hero md:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
+        <div className="grid overflow-hidden rounded-xl bg-hero glaze text-on-hero md:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
           <div className="flex flex-col items-start gap-5 p-8 md:p-12">
             <h2 id="cta-title" className="font-display text-h1-sm md:text-h1">
               Ready for a calmer visit?

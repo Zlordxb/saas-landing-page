@@ -7,6 +7,7 @@ import { generateReference } from "@/lib/booking/reference";
 import { blockedUntil, getAvailableSlots } from "@/lib/booking/slots";
 import { addDays, dateInZone, zonedTimeToUtc } from "@/lib/booking/time";
 import { normalizePhone } from "@/lib/format";
+import { visitorKey } from "@/lib/request-key";
 import { createAdminClient, isBookingConfigured } from "@/lib/supabase/admin";
 import { createBookingSchema, type CreateBookingInput } from "@/lib/validation/booking";
 
@@ -14,7 +15,7 @@ export type CreateBookingResult =
   | { ok: true; reference: string }
   | {
       ok: false;
-      error: "invalid" | "slot_taken" | "unavailable" | "not_connected" | "unknown";
+      error: "invalid" | "slot_taken" | "unavailable" | "limited" | "not_connected" | "unknown";
       message: string;
       fieldErrors?: Partial<Record<string, string[]>>;
     };
@@ -31,11 +32,28 @@ const UNKNOWN: CreateBookingResult = {
   message: "Your booking couldn’t be saved. Try again, or call the clinic.",
 };
 
+const LIMITS: Record<string, CreateBookingResult> = {
+  too_many_attempts: {
+    ok: false,
+    error: "limited",
+    message:
+      "Too many booking attempts from this device. Try again in an hour, or call the clinic.",
+  },
+  too_many_pending: {
+    ok: false,
+    error: "limited",
+    message:
+      "This phone number already has 3 appointments waiting for confirmation. Call the clinic to book more.",
+  },
+};
+
 /**
  * Server Action: runs on the server when the patient presses "Confirm booking".
- * 1. Validate the input again (never trust the browser).
- * 2. Re-check that the time is still free, with the same rules the calendar used.
- * 3. Save it. If two people book the same time at once, the database's exclusion
+ * Anyone can call it, so it defends itself:
+ * 1. Validate the input again (never trust the browser), and drop bots caught by the honeypot.
+ * 2. Spam limits in the database: 5 attempts an hour per visitor, 3 pending bookings per phone.
+ * 3. Re-check that the time is still free, with the same rules the calendar used.
+ * 4. Save it. If two people book the same time at once, the database's exclusion
  *    constraint lets only one through (error 23P01), and the other sees a clear message.
  */
 export async function createBooking(input: CreateBookingInput): Promise<CreateBookingResult> {
@@ -58,10 +76,20 @@ export async function createBooking(input: CreateBookingInput): Promise<CreateBo
     };
   }
 
-  const { serviceSlug, startsAt, name, phone, email, notes } = parsed.data;
+  const { serviceSlug, startsAt, name, phone, email, notes, website } = parsed.data;
+  // Only a bot fills in the hidden field. Nothing is saved, and the message gives nothing away.
+  if (website) return UNKNOWN;
+
   const supabase = createAdminClient();
 
   try {
+    const { data: verdict, error: limitError } = await supabase.rpc("booking_allowed", {
+      p_client_key: await visitorKey(),
+      p_phone: normalizePhone(phone),
+    });
+    if (limitError) throw limitError;
+    if (verdict !== "ok") return LIMITS[String(verdict)] ?? UNKNOWN;
+
     const { data: serviceRow, error: serviceError } = await supabase
       .from("services")
       .select("id, duration_minutes, price_egp")

@@ -24,12 +24,21 @@ export function BookingActions({ id, status }: { id: string; status: BookingStat
 
   if (askingToCancel) {
     return (
-      <div className="flex flex-wrap items-center justify-end gap-2" role="group" aria-label="Cancel this booking?">
+      <div
+        className="flex flex-wrap items-center justify-end gap-2"
+        role="group"
+        aria-label="Cancel this booking?"
+      >
         <span className="text-label font-medium">Cancel this booking?</span>
         <Button variant="danger" size="sm" disabled={isPending} onClick={() => run("cancelled")}>
           {isPending ? "Cancelling…" : "Yes, cancel"}
         </Button>
-        <Button variant="ghost" size="sm" disabled={isPending} onClick={() => setAskingToCancel(false)}>
+        <Button
+          variant="ghost"
+          size="sm"
+          disabled={isPending}
+          onClick={() => setAskingToCancel(false)}
+        >
           Keep it
         </Button>
       </div>
@@ -44,7 +53,12 @@ export function BookingActions({ id, status }: { id: string; status: BookingStat
             {isPending ? "Saving…" : "Confirm"}
           </Button>
         ) : null}
-        <Button variant="ghost" size="sm" disabled={isPending} onClick={() => setAskingToCancel(true)}>
+        <Button
+          variant="ghost"
+          size="sm"
+          disabled={isPending}
+          onClick={() => setAskingToCancel(true)}
+        >
           Cancel
         </Button>
       </div>

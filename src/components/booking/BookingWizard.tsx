@@ -95,7 +95,7 @@ export function BookingWizard({
 
   const form = useForm({
     resolver: zodResolver(bookingDetailsSchema),
-    defaultValues: { name: "", phone: "", email: "", notes: "" },
+    defaultValues: { name: "", phone: "", email: "", notes: "", website: "" },
     mode: "onTouched",
   });
   const { errors } = form.formState;
@@ -174,7 +174,11 @@ export function BookingWizard({
     setSubmitError(null);
     const details = form.getValues();
     startSubmit(async () => {
-      const result = await createBooking({ ...details, serviceSlug: service.slug, startsAt: start });
+      const result = await createBooking({
+        ...details,
+        serviceSlug: service.slug,
+        startsAt: start,
+      });
       if (result.ok) {
         router.push(`/book/confirmation/${result.reference}`);
         return;
@@ -340,7 +344,11 @@ export function BookingWizard({
               {timeError}
             </p>
           ) : null}
-          <StepActions onBack={() => setStep("service")} onNext={continueFromTime} nextLabel="Continue" />
+          <StepActions
+            onBack={() => setStep("service")}
+            onNext={continueFromTime}
+            nextLabel="Continue"
+          />
         </div>
       );
     }
@@ -401,7 +409,13 @@ export function BookingWizard({
                 />
               )}
             </Field>
-            <Field id="notes" label="Notes" optional error={errors.notes?.message} className="sm:col-span-2">
+            <Field
+              id="notes"
+              label="Notes"
+              optional
+              error={errors.notes?.message}
+              className="sm:col-span-2"
+            >
               {(describedBy) => (
                 <textarea
                   id="notes"
@@ -416,7 +430,22 @@ export function BookingWizard({
               )}
             </Field>
           </div>
-          <StepActions onBack={() => setStep("time")} nextLabel="Review booking" nextType="submit" />
+          {/* Honeypot: off-screen and hidden from screen readers, so only bots fill it in. */}
+          <div aria-hidden="true" className="fixed -left-[100vw] size-px overflow-hidden">
+            <label htmlFor="website">Website</label>
+            <input
+              id="website"
+              type="text"
+              tabIndex={-1}
+              autoComplete="off"
+              {...form.register("website")}
+            />
+          </div>
+          <StepActions
+            onBack={() => setStep("time")}
+            nextLabel="Review booking"
+            nextType="submit"
+          />
         </form>
       );
     }
@@ -426,7 +455,9 @@ export function BookingWizard({
     if (!service || !date || !start) {
       return (
         <div className="flex flex-col items-start gap-4">
-          <p className="text-ink-muted">Something is missing. Please choose a day and time again.</p>
+          <p className="text-ink-muted">
+            Something is missing. Please choose a day and time again.
+          </p>
           <Button variant="secondary" onClick={() => setStep("time")}>
             Choose a time
           </Button>
@@ -490,9 +521,15 @@ export function BookingWizard({
                   !done && !current && "border border-line-strong text-ink-muted",
                 )}
               >
-                {done ? <Check aria-hidden="true" className="size-4" strokeWidth={2.5} /> : index + 1}
+                {done ? (
+                  <Check aria-hidden="true" className="size-4" strokeWidth={2.5} />
+                ) : (
+                  index + 1
+                )}
               </span>
-              <span className={cn("text-label font-medium", current ? "text-ink" : "text-ink-muted")}>
+              <span
+                className={cn("text-label font-medium", current ? "text-ink" : "text-ink-muted")}
+              >
                 {item.label}
               </span>
             </>
@@ -579,7 +616,10 @@ function Field({
       </label>
       {children(describedBy)}
       {error ? (
-        <p id={`${id}-error`} className="flex items-start gap-1.5 text-label font-medium text-danger">
+        <p
+          id={`${id}-error`}
+          className="flex items-start gap-1.5 text-label font-medium text-danger"
+        >
           <CircleAlert aria-hidden="true" className="mt-0.5 size-4 shrink-0" strokeWidth={1.75} />
           {error}
         </p>

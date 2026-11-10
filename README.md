@@ -20,6 +20,7 @@ Next.js 16 · React 19 · TypeScript · Tailwind CSS 4 · Supabase · Zod · Rea
 - **Live availability.** Only free times are shown, computed from working hours, the treatment's length, a 15-minute sterilization buffer between patients, a 2-hour minimum notice and a 30-day booking window.
 - **No double bookings, ever.** A PostgreSQL exclusion constraint rejects overlapping bookings, even when two people press "Confirm" in the same millisecond. The losing patient gets a clear message and fresh times.
 - **Validated twice.** One Zod schema checks the form in the browser (React Hook Form) and again in the Server Action.
+- **Spam-resistant.** The public booking action checks a honeypot field, then asks the database: at most 5 attempts an hour per visitor (keyed by an HMAC of the IP, so no IP is stored) and at most 3 pending bookings per phone number.
 - **Secure by default.** Row Level Security everywhere: visitors can only read active services, patients never touch the bookings table directly, and the owner can read bookings and change only their status.
 - **Owner dashboard.** Today's numbers, filters in the URL, search by name, phone or reference, confirm and cancel.
 - **A design with a point of view.** Real photos set in domed faience tiles (after the tile walls in Djoser's tomb at Saqqara), a Treatments mega menu with prices, a live "Open now" status in Cairo time, a price list set like a menu, an interactive tooth-shade guide, an evening band with live free times, a studio lightbox on `<dialog>`, and a hand-drawn SVG map of Zamalek.
@@ -33,16 +34,16 @@ Next.js 16 · React 19 · TypeScript · Tailwind CSS 4 · Supabase · Zod · Rea
 
 ## Tech stack
 
-| Layer | Tool |
-|---|---|
-| Framework | Next.js 16.4 (App Router, Server Components, Server Actions, Route Handlers, Proxy) |
-| Language | TypeScript (strict) |
-| Styling | Tailwind CSS 4 (Turbopack loader) with design tokens (`src/app/globals.css`) |
-| Database and auth | Supabase: PostgreSQL, Row Level Security, email and password login |
-| Forms | React Hook Form + Zod |
-| Animation | Motion, plus one CSS entrance animation |
-| Tests | Vitest (booking logic) |
-| Hosting | Vercel |
+| Layer             | Tool                                                                                |
+| ----------------- | ----------------------------------------------------------------------------------- |
+| Framework         | Next.js 16.4 (App Router, Server Components, Server Actions, Route Handlers, Proxy) |
+| Language          | TypeScript (strict)                                                                 |
+| Styling           | Tailwind CSS 4 (Turbopack loader) with design tokens (`src/app/globals.css`)        |
+| Database and auth | Supabase: PostgreSQL, Row Level Security, email and password login                  |
+| Forms             | React Hook Form + Zod                                                               |
+| Animation         | Motion, plus one CSS entrance animation                                             |
+| Tests             | Vitest (booking logic)                                                              |
+| Hosting           | Vercel                                                                              |
 
 ## Run it locally
 
@@ -56,7 +57,7 @@ Open http://localhost:3000. The site works straight away on sample data. Booking
 ## Connect Supabase
 
 1. Create a project at [supabase.com](https://supabase.com).
-2. In **SQL Editor**, run the files in `supabase/migrations/` in order (schema first, then the seed).
+2. In **SQL Editor**, run the three files in `supabase/migrations/` in order: the schema, the seed, then the booking guards.
 3. Copy `.env.example` to `.env.local` and fill in the values from **Project Settings → API Keys**:
    - `NEXT_PUBLIC_SUPABASE_URL`
    - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
@@ -71,15 +72,22 @@ Open http://localhost:3000. The site works straight away on sample data. Booking
 
 ## Scripts
 
-| Command | What it does |
-|---|---|
-| `npm run dev` | Development server |
-| `npm run build` | Production build (includes the type check) |
-| `npm start` | Serve the production build |
-| `npm run lint` | ESLint |
-| `npm run typecheck` | TypeScript only |
-| `npm test` | Unit tests for the booking logic |
-| `npm run format` | Prettier, with Tailwind class sorting |
+| Command             | What it does                                                 |
+| ------------------- | ------------------------------------------------------------ |
+| `npm run dev`       | Development server                                           |
+| `npm run build`     | Production build (includes the type check)                   |
+| `npm start`         | Serve the production build                                   |
+| `npm run lint`      | ESLint                                                       |
+| `npm run typecheck` | TypeScript only                                              |
+| `npm test`          | Unit tests: free times, time zones, opening hours            |
+| `npm run test:db`   | Database tests on PostgreSQL 16 (needs `psql`; CI runs them) |
+| `npm run format`    | Prettier, with Tailwind class sorting                        |
+
+## Tests
+
+- **Unit tests (Vitest):** the free-time algorithm (buffer, notice, closing time, Fridays, daylight saving in Cairo) and the live opening hours.
+- **Database tests (`supabase/tests/`):** 14 checks against the real migrations on PostgreSQL 16: overlapping bookings are refused, cancelling frees the time, visitors can't read or write bookings, a signed-in non-admin sees nothing, the admin can change a booking's status but not the patient's details, and the spam limits hold.
+- **CI (GitHub Actions):** every push runs lint, the type check, the unit tests, a production build and the database tests.
 
 ## How a booking works
 
@@ -96,7 +104,9 @@ sequenceDiagram
   API-->>UI: Free start times
   P->>UI: Pick a time, enter details
   UI->>SA: createBooking()
-  SA->>SA: Validate (Zod) and re-check the rules
+  SA->>SA: Validate (Zod), honeypot
+  SA->>DB: booking_allowed(): spam limits
+  SA->>SA: Re-check the time is still free
   SA->>DB: Insert booking
   DB-->>SA: OK, or 23P01 if the time was just taken
   SA-->>UI: Reference (BF-7K2Q9X) or a clear message

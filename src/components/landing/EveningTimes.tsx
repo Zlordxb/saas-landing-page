@@ -40,7 +40,10 @@ export function EveningTimes({ serviceSlug }: { serviceSlug: string }) {
 
   if (state.status === "error") {
     return (
-      <Link href={`/book?service=${serviceSlug}`} className="font-semibold text-gold-on-night underline underline-offset-4">
+      <Link
+        href={`/book?service=${serviceSlug}`}
+        className="font-semibold text-gold-on-night underline underline-offset-4"
+      >
         See all free times
       </Link>
     );
@@ -77,7 +80,9 @@ export function EveningTimes({ serviceSlug }: { serviceSlug: string }) {
             ))}
       </ul>
       {state.status === "ready" && slots.length === 0 ? (
-        <p className="text-on-night-muted">The next evenings are full. Daytime times are still free.</p>
+        <p className="text-on-night-muted">
+          The next evenings are full. Daytime times are still free.
+        </p>
       ) : null}
       <Link
         href={`/book?service=${serviceSlug}`}

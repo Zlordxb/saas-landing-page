@@ -41,19 +41,33 @@ export function Testimonials() {
               {hero.rating.score}
             </span>
             <span className="flex flex-col gap-1">
-              <span className="inline-flex gap-0.5 text-accent" role="img" aria-label="5 out of 5 stars">
+              <span
+                className="inline-flex gap-0.5 text-accent"
+                role="img"
+                aria-label="5 out of 5 stars"
+              >
                 {Array.from({ length: 5 }, (_, star) => (
-                  <Star key={star} aria-hidden="true" className="size-5 fill-current" strokeWidth={0} />
+                  <Star
+                    key={star}
+                    aria-hidden="true"
+                    className="size-5 fill-current"
+                    strokeWidth={0}
+                  />
                 ))}
               </span>
-              <span className="text-small text-ink-muted">from {hero.rating.count} patient reviews</span>
+              <span className="text-small text-ink-muted">
+                from {hero.rating.count} patient reviews
+              </span>
             </span>
           </p>
           <p className="text-caption text-ink-muted">Reviews on this demo are fictional.</p>
         </div>
 
         <figure className="flex min-w-0 flex-col gap-8">
-          <div className="relative min-h-[11rem] overflow-hidden md:min-h-[9.5rem]" aria-live="polite">
+          <div
+            className="relative min-h-[11rem] overflow-hidden md:min-h-[9.5rem]"
+            aria-live="polite"
+          >
             <AnimatePresence initial={false} mode="popLayout" custom={direction}>
               <motion.blockquote
                 key={index}
@@ -74,7 +88,7 @@ export function Testimonials() {
             <span className="flex items-center gap-3">
               <span
                 aria-hidden="true"
-                className="glaze grid size-12 place-items-center rounded-md bg-primary font-display text-title font-medium text-on-primary"
+                className="grid size-12 place-items-center rounded-md bg-primary glaze font-display text-title font-medium text-on-primary"
               >
                 {review.name.charAt(0)}
               </span>

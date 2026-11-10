@@ -12,7 +12,7 @@ export function HowItWorks() {
           {steps.map((step, index) => (
             <li key={step.title} className="flex flex-col gap-3">
               <span className="flex items-center gap-4" aria-hidden="true">
-                <span className="glaze grid size-12 shrink-0 place-items-center rounded-full bg-primary font-display text-title font-medium text-on-primary tabular-nums">
+                <span className="grid size-12 shrink-0 place-items-center rounded-full bg-primary glaze font-display text-title font-medium text-on-primary tabular-nums">
                   {index + 1}
                 </span>
                 {index < steps.length - 1 ? (

@@ -70,7 +70,13 @@ describe("available slots", () => {
     // A 45-minute cleaning at 2:00 PM blocks the chair until 3:00 PM.
     const busy = [{ start: cairo("2026-11-14", "14:00"), end: cairo("2026-11-14", "15:00") }];
     const slots = labels(
-      getAvailableSlots({ date: "2026-11-14", durationMinutes: 30, busy, rules: bookingRules, now }),
+      getAvailableSlots({
+        date: "2026-11-14",
+        durationMinutes: 30,
+        busy,
+        rules: bookingRules,
+        now,
+      }),
     );
     expect(slots).toContain("1:15 PM"); // ends 1:45, buffer until 2:00
     expect(slots).not.toContain("1:30 PM"); // its buffer would run into 2:00

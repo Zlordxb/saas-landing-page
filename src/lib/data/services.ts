@@ -36,7 +36,9 @@ export const getServices = cache(async (): Promise<Service[]> => {
 
   const { data, error } = await createPublicClient()
     .from("services")
-    .select("slug, name, description, duration_minutes, price_egp, price_unit, is_popular, sort_order")
+    .select(
+      "slug, name, description, duration_minutes, price_egp, price_unit, is_popular, sort_order",
+    )
     .eq("is_active", true)
     .order("sort_order");
 

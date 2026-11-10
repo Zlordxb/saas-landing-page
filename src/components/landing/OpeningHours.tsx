@@ -30,12 +30,18 @@ export function OpeningHours() {
               >
                 <th scope="row" className={cn("py-2", isToday ? "font-semibold" : "font-medium")}>
                   {day.name}
-                  {isToday ? <span className="ml-2 text-small font-medium text-link">Today</span> : null}
+                  {isToday ? (
+                    <span className="ml-2 text-small font-medium text-link">Today</span>
+                  ) : null}
                 </th>
                 <td
                   className={cn(
                     "py-2 text-right tabular-nums",
-                    isToday ? "font-semibold text-ink" : closed ? "text-ink-subtle" : "text-ink-muted",
+                    isToday
+                      ? "font-semibold text-ink"
+                      : closed
+                        ? "text-ink-subtle"
+                        : "text-ink-muted",
                   )}
                 >
                   {day.hours}

@@ -62,9 +62,10 @@ export function Dropdown({
   useEffect(() => {
     if (!open) return;
     const elements = itemsIn(menuRef.current);
-    const checked = elements.findIndex((element) => element.getAttribute("aria-checked") === "true");
-    const index =
-      focusOnOpen.current === "last" ? elements.length - 1 : checked >= 0 ? checked : 0;
+    const checked = elements.findIndex(
+      (element) => element.getAttribute("aria-checked") === "true",
+    );
+    const index = focusOnOpen.current === "last" ? elements.length - 1 : checked >= 0 ? checked : 0;
     elements[index]?.focus();
   }, [open]);
 
@@ -161,7 +162,10 @@ export function Dropdown({
                   {kind === "choice" ? (
                     <Check
                       aria-hidden="true"
-                      className={cn("mt-0.5 size-4 shrink-0", item.checked ? "opacity-100" : "opacity-0")}
+                      className={cn(
+                        "mt-0.5 size-4 shrink-0",
+                        item.checked ? "opacity-100" : "opacity-0",
+                      )}
                       strokeWidth={2}
                     />
                   ) : item.icon ? (

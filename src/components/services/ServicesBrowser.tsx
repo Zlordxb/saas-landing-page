@@ -10,13 +10,26 @@ import { cn } from "@/lib/format";
 import { ServiceCard } from "./ServiceCard";
 
 const SORTS = [
-  { id: "recommended", label: "Recommended", compare: (a: Service, b: Service) => a.sortOrder - b.sortOrder },
-  { id: "price-low", label: "Price: low to high", compare: (a: Service, b: Service) => a.priceEgp - b.priceEgp },
-  { id: "price-high", label: "Price: high to low", compare: (a: Service, b: Service) => b.priceEgp - a.priceEgp },
+  {
+    id: "recommended",
+    label: "Recommended",
+    compare: (a: Service, b: Service) => a.sortOrder - b.sortOrder,
+  },
+  {
+    id: "price-low",
+    label: "Price: low to high",
+    compare: (a: Service, b: Service) => a.priceEgp - b.priceEgp,
+  },
+  {
+    id: "price-high",
+    label: "Price: high to low",
+    compare: (a: Service, b: Service) => b.priceEgp - a.priceEgp,
+  },
   {
     id: "shortest",
     label: "Shortest visit first",
-    compare: (a: Service, b: Service) => a.durationMinutes - b.durationMinutes || a.sortOrder - b.sortOrder,
+    compare: (a: Service, b: Service) =>
+      a.durationMinutes - b.durationMinutes || a.sortOrder - b.sortOrder,
   },
 ] as const;
 

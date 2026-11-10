@@ -26,6 +26,9 @@ export const bookingDetailsSchema = z.object({
     .max(254, "Enter a valid email address.")
     .refine((value) => value === "" || isEmail(value), "Enter a valid email address."),
   notes: z.string().trim().max(500, "Notes can be up to 500 characters."),
+  // Honeypot: a field people never see. Spam bots fill in every field and give themselves away.
+  // Accepted here so the form doesn't flag it; the Server Action rejects any value.
+  website: z.string().max(200).optional(),
 });
 
 export type BookingDetails = z.infer<typeof bookingDetailsSchema>;

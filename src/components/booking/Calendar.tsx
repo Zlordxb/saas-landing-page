@@ -13,7 +13,12 @@ import {
 import { cn } from "@/lib/format";
 
 const WEEKDAYS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
-const KEY_STEPS: Record<string, number> = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -7, ArrowDown: 7 };
+const KEY_STEPS: Record<string, number> = {
+  ArrowLeft: -1,
+  ArrowRight: 1,
+  ArrowUp: -7,
+  ArrowDown: 7,
+};
 
 function shiftMonth(month: string, delta: number): string {
   const [year, monthNumber] = month.split("-").map(Number);
@@ -131,7 +136,12 @@ export function Calendar({
         ))}
       </div>
 
-      <div ref={gridRef} role="group" aria-label={`Days in ${monthLabel}`} className="grid grid-cols-7 gap-y-1">
+      <div
+        ref={gridRef}
+        role="group"
+        aria-label={`Days in ${monthLabel}`}
+        className="grid grid-cols-7 gap-y-1"
+      >
         {Array.from({ length: leadingBlanks }, (_, index) => (
           <span key={`blank-${index}`} />
         ))}

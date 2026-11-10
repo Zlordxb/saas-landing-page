@@ -15,11 +15,15 @@ export function Faq() {
             <h2 id="faq-title" className="font-display text-h2-sm md:text-h2">
               Questions, answered
             </h2>
-            <p className="text-lead text-ink-muted">The things people ask us most before a first visit.</p>
+            <p className="text-lead text-ink-muted">
+              The things people ask us most before a first visit.
+            </p>
           </div>
           <div className="flex flex-col gap-3 rounded-xl bg-primary-soft p-6 text-on-primary-soft">
             <p className="font-display text-title font-medium">Still unsure about something?</p>
-            <p className="text-small">Call the clinic between 12 PM and 10 PM. A person answers, not a menu.</p>
+            <p className="text-small">
+              Call the clinic between 12 PM and 10 PM. A person answers, not a menu.
+            </p>
             <a
               href={`tel:${normalizePhone(clinic.phone)}`}
               className={buttonStyles({ variant: "primary", size: "sm", className: "self-start" })}
@@ -32,7 +36,11 @@ export function Faq() {
 
         <div className="border-b border-line">
           {faqs.map((faq, index) => (
-            <details key={faq.question} className="accordion group border-t border-line" open={index === 0}>
+            <details
+              key={faq.question}
+              className="accordion group border-t border-line"
+              open={index === 0}
+            >
               <summary className="flex cursor-pointer items-center justify-between gap-4 rounded-sm py-5 text-lead font-semibold">
                 {faq.question}
                 <span className="grid size-9 shrink-0 place-items-center rounded-full bg-surface-muted transition-colors group-open:bg-primary group-open:text-on-primary">

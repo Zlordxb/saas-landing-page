@@ -11,7 +11,13 @@ const minutesBetween = (start: string, end: string) =>
   Math.round((new Date(end).getTime() - new Date(start).getTime()) / 60_000);
 
 /** A table on wide screens, stacked cards on phones: the same data, in the same order. */
-export function BookingList({ bookings, emptyText }: { bookings: AdminBooking[]; emptyText: string }) {
+export function BookingList({
+  bookings,
+  emptyText,
+}: {
+  bookings: AdminBooking[];
+  emptyText: string;
+}) {
   if (bookings.length === 0) {
     return (
       <div className="rounded-lg border border-dashed border-line-strong bg-surface p-10 text-center">

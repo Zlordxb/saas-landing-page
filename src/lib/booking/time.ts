@@ -27,7 +27,9 @@ export function isValidDateString(date: string): boolean {
   const { year, month, day } = parseDate(date);
   const check = new Date(Date.UTC(year, month - 1, day));
   return (
-    check.getUTCFullYear() === year && check.getUTCMonth() === month - 1 && check.getUTCDate() === day
+    check.getUTCFullYear() === year &&
+    check.getUTCMonth() === month - 1 &&
+    check.getUTCDate() === day
   );
 }
 

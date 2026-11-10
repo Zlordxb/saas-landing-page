@@ -37,7 +37,9 @@ export function TreatmentsPanel({
                     className="group -mx-3 flex items-baseline justify-between gap-4 rounded-md px-3 py-2 transition-colors hover:bg-surface-muted"
                   >
                     <span className="min-w-0">
-                      <span className="block font-medium group-hover:text-link">{service.name}</span>
+                      <span className="block font-medium group-hover:text-link">
+                        {service.name}
+                      </span>
                       <span className="block text-small text-ink-muted">
                         {formatDuration(service.durationMinutes)}
                       </span>

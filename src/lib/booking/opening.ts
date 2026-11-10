@@ -16,8 +16,7 @@ export function hourLabel(time: string): string {
 }
 
 export type OpeningStatus =
-  | { open: true; closesAt: string }
-  | { open: false; opensAt: string; opensOn: string };
+  { open: true; closesAt: string } | { open: false; opensAt: string; opensOn: string };
 
 /**
  * Is the clinic open at this moment, and if not, when does it open next?

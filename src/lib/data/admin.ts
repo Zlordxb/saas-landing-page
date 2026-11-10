@@ -76,7 +76,8 @@ export async function getBookings(
     .limit(200);
 
   if (filters.status !== "all") query = query.eq("status", filters.status);
-  if (filters.when === "today") query = query.gte("starts_at", startOfToday).lt("starts_at", startOfTomorrow);
+  if (filters.when === "today")
+    query = query.gte("starts_at", startOfToday).lt("starts_at", startOfTomorrow);
   if (filters.when === "upcoming") query = query.gte("starts_at", startOfToday);
   if (filters.when === "past") query = query.lt("starts_at", startOfToday);
 
@@ -115,7 +116,10 @@ export type DashboardStats = {
   nextToday: string | null;
 };
 
-export async function getStats(supabase: SupabaseClient, now = new Date()): Promise<DashboardStats> {
+export async function getStats(
+  supabase: SupabaseClient,
+  now = new Date(),
+): Promise<DashboardStats> {
   const { startOfToday, startOfTomorrow, inSevenDays } = dayBounds(now);
   const active = ["pending", "confirmed"];
   const count = () => supabase.from("bookings").select("id", { count: "exact", head: true });

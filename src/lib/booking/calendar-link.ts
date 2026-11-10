@@ -7,7 +7,11 @@ export type CalendarEvent = {
 };
 
 /** 2026-11-14T14:30:00.000Z → 20261114T143000Z (the format calendars expect). */
-const stamp = (date: Date) => date.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
+const stamp = (date: Date) =>
+  date
+    .toISOString()
+    .replace(/[-:]/g, "")
+    .replace(/\.\d{3}/, "");
 
 /** A link that opens Google Calendar with the appointment filled in. */
 export function googleCalendarUrl(event: CalendarEvent): string {
@@ -23,7 +27,10 @@ export function googleCalendarUrl(event: CalendarEvent): string {
 
 /** Commas, semicolons, backslashes and line breaks must be escaped inside .ics text. */
 const icsText = (text: string) =>
-  text.replace(/\\/g, "\\\\").replace(/\r?\n/g, "\\n").replace(/([,;])/g, "\\$1");
+  text
+    .replace(/\\/g, "\\\\")
+    .replace(/\r?\n/g, "\\n")
+    .replace(/([,;])/g, "\\$1");
 
 /**
  * An .ics file (iCalendar, RFC 5545) for Apple Calendar, Outlook and almost every other

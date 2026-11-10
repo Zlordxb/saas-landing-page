@@ -33,8 +33,8 @@ export default async function ServicesPage() {
         <Container className="flex flex-col gap-8">
           <ServicesBrowser services={services} />
           <p className="max-w-prose text-small text-ink-muted">
-            Not sure what you need? Book a check-up and consultation first: you get the plan and
-            the prices before any treatment. Prices on this demo are examples.
+            Not sure what you need? Book a check-up and consultation first: you get the plan and the
+            prices before any treatment. Prices on this demo are examples.
           </p>
         </Container>
       </section>

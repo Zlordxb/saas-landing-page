@@ -8,7 +8,7 @@ import { cn } from "@/lib/format";
 export function NileMap({ className }: { className?: string }) {
   return (
     <figure className={cn("flex flex-col gap-3", className)}>
-      <div className="relative overflow-hidden border border-line tile-dome-lg">
+      <div className="relative overflow-hidden tile-dome-lg border border-line">
         <svg
           viewBox="0 0 480 560"
           role="img"
@@ -59,14 +59,26 @@ export function NileMap({ className }: { className?: string }) {
 
           {/* Labels */}
           <g fill="var(--ink-muted)" fontSize="14" fontWeight="500" textAnchor="middle">
-            <text x="70" y="150">Agouza</text>
-            <text x="70" y="420">Dokki</text>
-            <text x="420" y="140">Bulaq</text>
-            <text x="424" y="372">Downtown</text>
+            <text x="70" y="150">
+              Agouza
+            </text>
+            <text x="70" y="420">
+              Dokki
+            </text>
+            <text x="420" y="140">
+              Bulaq
+            </text>
+            <text x="424" y="372">
+              Downtown
+            </text>
           </g>
           <g fill="var(--ink)" fontSize="16" fontWeight="600" textAnchor="middle">
-            <text x="240" y="250">Zamalek</text>
-            <text x="246" y="366">Gezira</text>
+            <text x="240" y="250">
+              Zamalek
+            </text>
+            <text x="246" y="366">
+              Gezira
+            </text>
           </g>
           <text
             x="0"
@@ -94,7 +106,10 @@ export function NileMap({ className }: { className?: string }) {
           {/* The clinic: a glazed tile pin with the nfr mark */}
           <g transform="translate(244 128)">
             <circle r="26" fill="var(--faience-600)" opacity="0.18" />
-            <path d="M0 18C-10 6-16-2-16-10a16 16 0 0 1 32 0c0 8-6 16-16 28Z" fill="var(--faience-600)" />
+            <path
+              d="M0 18C-10 6-16-2-16-10a16 16 0 0 1 32 0c0 8-6 16-16 28Z"
+              fill="var(--faience-600)"
+            />
             <path
               d="M-2.4 -10.4h4.8c2 1 3.3 2.9 3.3 5 0 2.8-2.5 5-5.7 5s-5.7-2.2-5.7-5c0-2.1 1.3-4 3.3-5z"
               fill="var(--neutral-0)"
@@ -104,7 +119,14 @@ export function NileMap({ className }: { className?: string }) {
             <rect x="-3" y="-15.5" width="6" height="1.6" rx="0.8" fill="var(--neutral-0)" />
             <g transform="translate(22 -26)">
               <rect width="122" height="30" rx="15" fill="var(--neutral-0)" stroke="var(--line)" />
-              <text x="61" y="20" fill="var(--ink)" fontSize="13" fontWeight="600" textAnchor="middle">
+              <text
+                x="61"
+                y="20"
+                fill="var(--ink)"
+                fontSize="13"
+                fontWeight="600"
+                textAnchor="middle"
+              >
                 Nefer Dental Studio
               </text>
             </g>

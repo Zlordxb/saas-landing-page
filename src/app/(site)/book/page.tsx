@@ -8,7 +8,8 @@ import { isBookingConfigured } from "@/lib/supabase/admin";
 
 export const metadata: Metadata = {
   title: "Book an appointment",
-  description: "Choose a treatment, pick a free time and book in under a minute. No payment online.",
+  description:
+    "Choose a treatment, pick a free time and book in under a minute. No payment online.",
 };
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;

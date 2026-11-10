@@ -22,8 +22,8 @@ export default function LoginPage() {
           <LoginForm />
         ) : (
           <Alert tone="info" title="Supabase isn’t connected yet">
-            Add your keys to <code>.env.local</code> and create the owner user. The README walks
-            you through it.
+            Add your keys to <code>.env.local</code> and create the owner user. The README walks you
+            through it.
           </Alert>
         )}
       </div>

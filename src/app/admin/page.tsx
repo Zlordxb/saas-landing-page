@@ -56,12 +56,10 @@ export default async function AdminPage({ searchParams }: { searchParams: Search
           {isAdmin ? (
             <Dashboard filters={filters} supabase={supabase} />
           ) : (
-            <Alert tone="info" title="Your account isn’t an admin yet">
-              Run this once in the Supabase SQL editor, then refresh:
-              <code className="mt-2 block rounded-sm bg-surface p-3 text-caption break-all">
-                insert into public.admin_users (user_id) select id from auth.users where email =
-                &apos;{email}&apos;;
-              </code>
+            // A general message: setup details (the admin_users table) stay in the README.
+            <Alert tone="info" title="This account can’t open the dashboard">
+              Sign out and sign in with the clinic owner’s account, or ask the owner to give you
+              access.
             </Alert>
           )}
         </Container>

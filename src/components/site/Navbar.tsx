@@ -96,118 +96,127 @@ export function Navbar({ services }: { services: Service[] }) {
 
   return (
     <>
-    <header
-      className={cn(
-        "sticky top-0 z-40 border-b bg-bg/90 backdrop-blur-md transition-[box-shadow,border-color] duration-200",
-        scrolled || panelOpen ? "border-line shadow-sm" : "border-transparent",
-      )}
-    >
-      <Container className="flex h-18 items-center justify-between gap-6">
-        <Logo />
+      <header
+        className={cn(
+          "sticky top-0 z-40 border-b bg-bg/90 backdrop-blur-md transition-[box-shadow,border-color] duration-200",
+          scrolled || panelOpen ? "border-line shadow-sm" : "border-transparent",
+        )}
+      >
+        <Container className="flex h-18 items-center justify-between gap-6">
+          <Logo />
 
-        <nav aria-label="Main" className="hidden lg:block">
-          <ul className="flex items-center gap-1">
-            <li>
-              <Link
-                href="/"
-                aria-current={pathname === "/" ? "page" : undefined}
-                className={cn(navItem, "aria-[current=page]:bg-surface-muted aria-[current=page]:text-ink")}
+          <nav aria-label="Main" className="hidden lg:block">
+            <ul className="flex items-center gap-1">
+              <li>
+                <Link
+                  href="/"
+                  aria-current={pathname === "/" ? "page" : undefined}
+                  className={cn(
+                    navItem,
+                    "aria-[current=page]:bg-surface-muted aria-[current=page]:text-ink",
+                  )}
+                >
+                  Home
+                </Link>
+              </li>
+              {/* The panel sits inside this item, so Tab moves from the button straight into it. */}
+              <li
+                onPointerEnter={(event) => event.pointerType === "mouse" && hoverPanel(true)}
+                onPointerLeave={(event) => event.pointerType === "mouse" && hoverPanel(false)}
+                onBlur={onTreatmentsBlur}
               >
-                Home
-              </Link>
-            </li>
-            {/* The panel sits inside this item, so Tab moves from the button straight into it. */}
-            <li
-              onPointerEnter={(event) => event.pointerType === "mouse" && hoverPanel(true)}
-              onPointerLeave={(event) => event.pointerType === "mouse" && hoverPanel(false)}
-              onBlur={onTreatmentsBlur}
-            >
-              <button
-                ref={triggerRef}
-                type="button"
-                aria-expanded={panelOpen}
-                aria-controls="treatments-panel"
-                onPointerDown={(event) => {
-                  lastPointer.current = event.pointerType;
-                }}
-                onClick={(event) => {
-                  // A mouse already opened it by hovering: a click keeps it open.
-                  const byMouse = event.detail > 0 && lastPointer.current === "mouse";
-                  setPanelOpen((open) => (byMouse ? true : !open));
-                }}
-                className={navItem}
-              >
-                Treatments
-                <ChevronDown
-                  aria-hidden="true"
-                  className={cn("size-4 transition-transform duration-200", panelOpen && "rotate-180")}
-                  strokeWidth={2}
+                <button
+                  ref={triggerRef}
+                  type="button"
+                  aria-expanded={panelOpen}
+                  aria-controls="treatments-panel"
+                  onPointerDown={(event) => {
+                    lastPointer.current = event.pointerType;
+                  }}
+                  onClick={(event) => {
+                    // A mouse already opened it by hovering: a click keeps it open.
+                    const byMouse = event.detail > 0 && lastPointer.current === "mouse";
+                    setPanelOpen((open) => (byMouse ? true : !open));
+                  }}
+                  className={navItem}
+                >
+                  Treatments
+                  <ChevronDown
+                    aria-hidden="true"
+                    className={cn(
+                      "size-4 transition-transform duration-200",
+                      panelOpen && "rotate-180",
+                    )}
+                    strokeWidth={2}
+                  />
+                </button>
+
+                <AnimatePresence>
+                  {panelOpen ? (
+                    <motion.div
+                      id="treatments-panel"
+                      initial={{ opacity: 0, y: -8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.2, ease }}
+                      className="absolute inset-x-0 top-full border-b border-line bg-surface shadow-lg"
+                    >
+                      <TreatmentsPanel services={services} onNavigate={() => setPanelOpen(false)} />
+                    </motion.div>
+                  ) : null}
+                </AnimatePresence>
+              </li>
+              <li>
+                <Dropdown
+                  label={
+                    <>
+                      The clinic
+                      <ChevronDown aria-hidden="true" className="size-4" strokeWidth={2} />
+                    </>
+                  }
+                  buttonClassName={navItem}
+                  items={clinicLinks.map((link) => ({
+                    href: link.href,
+                    label: link.label,
+                    description: link.description,
+                    icon: <link.icon className="size-5" strokeWidth={1.75} />,
+                  }))}
                 />
-              </button>
+              </li>
+              <li>
+                <Link
+                  href="/services"
+                  aria-current={pathname === "/services" ? "page" : undefined}
+                  className={cn(
+                    navItem,
+                    "aria-[current=page]:bg-surface-muted aria-[current=page]:text-ink",
+                  )}
+                >
+                  Prices
+                </Link>
+              </li>
+            </ul>
+          </nav>
 
-              <AnimatePresence>
-                {panelOpen ? (
-                  <motion.div
-                    id="treatments-panel"
-                    initial={{ opacity: 0, y: -8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.2, ease }}
-                    className="absolute inset-x-0 top-full border-b border-line bg-surface shadow-lg"
-                  >
-                    <TreatmentsPanel services={services} onNavigate={() => setPanelOpen(false)} />
-                  </motion.div>
-                ) : null}
-              </AnimatePresence>
-            </li>
-            <li>
-              <Dropdown
-                label={
-                  <>
-                    The clinic
-                    <ChevronDown aria-hidden="true" className="size-4" strokeWidth={2} />
-                  </>
-                }
-                buttonClassName={navItem}
-                items={clinicLinks.map((link) => ({
-                  href: link.href,
-                  label: link.label,
-                  description: link.description,
-                  icon: <link.icon className="size-5" strokeWidth={1.75} />,
-                }))}
-              />
-            </li>
-            <li>
-              <Link
-                href="/services"
-                aria-current={pathname === "/services" ? "page" : undefined}
-                className={cn(navItem, "aria-[current=page]:bg-surface-muted aria-[current=page]:text-ink")}
-              >
-                Prices
-              </Link>
-            </li>
-          </ul>
-        </nav>
-
-        <div className="flex items-center gap-2">
-          <ButtonLink href="/book" size="sm">
-            <span className="sm:hidden">Book</span>
-            <span className="hidden sm:inline">Book an appointment</span>
-          </ButtonLink>
-          <button
-            ref={menuButtonRef}
-            type="button"
-            className="grid size-10 place-items-center rounded-full text-ink hover:bg-surface-muted lg:hidden"
-            aria-expanded={mobileOpen}
-            aria-controls="mobile-menu"
-            aria-label="Open menu"
-            onClick={() => setMobileOpen(true)}
-          >
-            <Menu aria-hidden="true" className="size-5" strokeWidth={1.75} />
-          </button>
-        </div>
-      </Container>
-    </header>
+          <div className="flex items-center gap-2">
+            <ButtonLink href="/book" size="sm">
+              <span className="sm:hidden">Book</span>
+              <span className="hidden sm:inline">Book an appointment</span>
+            </ButtonLink>
+            <button
+              ref={menuButtonRef}
+              type="button"
+              className="grid size-10 place-items-center rounded-full text-ink hover:bg-surface-muted lg:hidden"
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-menu"
+              aria-label="Open menu"
+              onClick={() => setMobileOpen(true)}
+            >
+              <Menu aria-hidden="true" className="size-5" strokeWidth={1.75} />
+            </button>
+          </div>
+        </Container>
+      </header>
 
       {/* Outside the header: its backdrop blur would trap a fixed-position child inside it. */}
       <AnimatePresence>

@@ -18,10 +18,20 @@ type Tile =
  * which sits over them like the keystone of the wall.
  */
 const tiles: Tile[] = [
-  { kind: "photo", photo: photos.chair, className: "col-start-1 row-span-7 row-start-1", preload: true },
+  {
+    kind: "photo",
+    photo: photos.chair,
+    className: "col-start-1 row-span-7 row-start-1",
+    preload: true,
+  },
   { kind: "glaze", className: "col-start-2 row-span-3 row-start-1 bg-primary" },
   { kind: "photo", photo: photos.mirror, className: "col-start-2 row-span-5 row-start-4" },
-  { kind: "photo", photo: photos.nile, className: "col-start-3 row-span-8 row-start-2", preload: true },
+  {
+    kind: "photo",
+    photo: photos.nile,
+    className: "col-start-3 row-span-8 row-start-2",
+    preload: true,
+  },
   { kind: "glaze", className: "col-start-1 row-span-5 row-start-8 bg-faience-400" },
   { kind: "photo", photo: photos.smile, className: "col-start-3 row-span-3 row-start-10" },
 ];
@@ -52,7 +62,11 @@ export function HeroWall({ service }: { service?: Service }) {
               )}
             >
               {tile.kind === "photo" ? (
-                <Photo photo={tile.photo} sizes="(min-width: 1280px) 15rem, 25vw" preload={tile.preload} />
+                <Photo
+                  photo={tile.photo}
+                  sizes="(min-width: 1280px) 15rem, 25vw"
+                  preload={tile.preload}
+                />
               ) : null}
             </motion.div>
           ))}
