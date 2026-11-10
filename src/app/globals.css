@@ -1,26 +1,308 @@
 @import "tailwindcss";
 
+/*
+ * Nefer Dental Studio design tokens (the full set: docs/design/tokens.css).
+ * Components use the ROLE tokens (bg, ink, primary…), never raw hex values,
+ * so a rebrand or a dark theme only changes this block.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --faience-50: #eff9f8;
+  --faience-100: #def2ef;
+  --faience-200: #c2e5e1;
+  --faience-300: #9fd3ce;
+  --faience-400: #71b8b2;
+  --faience-500: #449b95;
+  --faience-600: #0b7a74;
+  --faience-700: #0b6461;
+  --faience-800: #044e4e;
+  --faience-900: #023a3b;
+
+  --neutral-0: #ffffff;
+  --neutral-50: #f2f6f4;
+  --neutral-100: #e6ebe9;
+  --neutral-200: #d4dbd9;
+  --neutral-300: #b5c0bf;
+  --neutral-400: #7f9093;
+  --neutral-500: #62757d;
+  --neutral-600: #4e626e;
+  --neutral-700: #394f5c;
+  --neutral-800: #243d4b;
+  --neutral-900: #0f2b3a;
+
+  --bg: var(--neutral-50);
+  --surface: var(--neutral-0);
+  --surface-muted: var(--neutral-100);
+  --line: var(--neutral-200);
+  --line-strong: var(--neutral-400);
+  --ink: var(--neutral-900);
+  --ink-muted: var(--neutral-600);
+  --ink-subtle: var(--neutral-500);
+  --primary: var(--faience-600);
+  --primary-hover: var(--faience-700);
+  --on-primary: #ffffff;
+  --primary-soft: var(--faience-100);
+  --on-primary-soft: var(--faience-800);
+  --link: var(--faience-700);
+  --focus: var(--faience-600);
+  --accent: #c79a4b;
+  --hero-card: var(--faience-700);
+  --on-hero-card: var(--neutral-50);
+  --on-hero-card-muted: var(--faience-100);
+  --hero-card-line: var(--faience-300);
+  --pending-bg: #fff5ec;
+  --pending-ink: #623903;
+  --confirmed-bg: #f0faf3;
+  --confirmed-ink: #03522e;
+  --cancelled-bg: var(--neutral-100);
+  --cancelled-ink: var(--neutral-700);
+  --danger: #9e1e1b;
+  --danger-fill: #c1352e;
+  --on-danger: #ffffff;
+  --danger-soft: #fff4f2;
+  --demo-bg: #f9ebd5;
+  --demo-ink: #5a3e00;
+
+  /* The Nile after dark: the evening-hours band. Checked: muted text 7.5:1, gold 7.3:1. */
+  --night: var(--faience-900);
+  --night-raised: var(--faience-800);
+  --on-night: #eef6f4;
+  --on-night-muted: #a9cfca;
+  --gold-on-night: #e2c27f;
+
+  /* Shade-guide enamel, darkest to lightest (close to the VITA classical tabs). */
+  --enamel-a4: #cdb083;
+  --enamel-c3: #c9b79d;
+  --enamel-b4: #d8c08a;
+  --enamel-a35: #dac39a;
+  --enamel-a3: #e3d0ac;
+  --enamel-a2: #ebddc0;
+  --enamel-a1: #f1e8d4;
+  --enamel-b1: #f6f1e6;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* Only our palette exists: no stray Tailwind blues or greens. */
+@theme {
+  --color-*: initial;
+  --color-white: #ffffff;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --text-display: 4.5rem;
+  --text-display--line-height: 4.75rem;
+  --text-display--letter-spacing: -0.02em;
+  --text-display-sm: 3rem;
+  --text-display-sm--line-height: 3.25rem;
+  --text-display-sm--letter-spacing: -0.02em;
+  --text-h1: 3rem;
+  --text-h1--line-height: 3.375rem;
+  --text-h1--letter-spacing: -0.015em;
+  --text-h1-sm: 2.25rem;
+  --text-h1-sm--line-height: 2.625rem;
+  --text-h1-sm--letter-spacing: -0.01em;
+  --text-h2: 2.25rem;
+  --text-h2--line-height: 2.625rem;
+  --text-h2--letter-spacing: -0.01em;
+  --text-h2-sm: 1.75rem;
+  --text-h2-sm--line-height: 2.125rem;
+  --text-h3: 1.5rem;
+  --text-h3--line-height: 1.875rem;
+  --text-title: 1.3125rem;
+  --text-title--line-height: 1.75rem;
+  --text-lead: 1.125rem;
+  --text-lead--line-height: 1.8125rem;
+  --text-body: 1rem;
+  --text-body--line-height: 1.625rem;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.375rem;
+  --text-label: 0.875rem;
+  --text-label--line-height: 1.25rem;
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1rem;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 1.75rem;
+
+  --shadow-sm: 0 1px 2px #0f2b3a0f;
+  --shadow-md: 0 1px 2px #0f2b3a0d, 0 8px 24px -8px #0f2b3a1f;
+  --shadow-lg: 0 2px 4px #0f2b3a0a, 0 24px 48px -16px #0f2b3a2e;
+
+  --ease-glaze: cubic-bezier(0.22, 1, 0.36, 1);
+  --container-content: 75rem;
+
+  --animate-rise: rise 500ms var(--ease-glaze) both;
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+  }
+
+  /* The "live" dot next to opening status and free times. */
+  --animate-live: live 2.4s var(--ease-glaze) infinite;
+  @keyframes live {
+    0% {
+      box-shadow: 0 0 0 0 color-mix(in oklab, currentColor 55%, transparent);
+    }
+    70%,
+    100% {
+      box-shadow: 0 0 0 7px transparent;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Utilities that read the role tokens: bg-primary, text-ink-muted, border-line… */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-subtle: var(--ink-subtle);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-on-primary: var(--on-primary);
+  --color-primary-soft: var(--primary-soft);
+  --color-on-primary-soft: var(--on-primary-soft);
+  --color-link: var(--link);
+  --color-focus: var(--focus);
+  --color-accent: var(--accent);
+  --color-hero: var(--hero-card);
+  --color-on-hero: var(--on-hero-card);
+  --color-on-hero-muted: var(--on-hero-card-muted);
+  --color-hero-line: var(--hero-card-line);
+  --color-pending: var(--pending-bg);
+  --color-on-pending: var(--pending-ink);
+  --color-confirmed: var(--confirmed-bg);
+  --color-on-confirmed: var(--confirmed-ink);
+  --color-cancelled: var(--cancelled-bg);
+  --color-on-cancelled: var(--cancelled-ink);
+  --color-danger: var(--danger);
+  --color-danger-fill: var(--danger-fill);
+  --color-on-danger: var(--on-danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-demo: var(--demo-bg);
+  --color-on-demo: var(--demo-ink);
+  --color-faience-50: var(--faience-50);
+  --color-faience-100: var(--faience-100);
+  --color-faience-200: var(--faience-200);
+  --color-faience-400: var(--faience-400);
+  --color-faience-600: var(--faience-600);
+  --color-faience-700: var(--faience-700);
+  --color-faience-800: var(--faience-800);
+  --color-night: var(--night);
+  --color-night-raised: var(--night-raised);
+  --color-on-night: var(--on-night);
+  --color-on-night-muted: var(--on-night-muted);
+  --color-gold-on-night: var(--gold-on-night);
+
+  --font-sans: var(--font-figtree), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--ink);
+    font-size: 1rem;
+    line-height: 1.625rem;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Fraunces' SOFT axis rounds the serifs: the "glazed ceramic" look. */
+  .font-display {
+    font-variation-settings:
+      "SOFT" 100,
+      "WONK" 0;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: var(--primary-soft);
+    color: var(--on-primary-soft);
+  }
+
+  /* Anchored sections stop below the sticky header, not under it. */
+  [id] {
+    scroll-margin-top: 6rem;
+  }
+}
+
+/*
+ * The faience tile: Djoser's tiles at Saqqara have a gently domed top.
+ * Photos on the home page sit in this shape.
+ */
+@utility tile-dome {
+  border-radius: 50% 50% var(--radius-md) var(--radius-md) / 2.75rem 2.75rem var(--radius-md)
+    var(--radius-md);
+}
+
+@utility tile-dome-lg {
+  border-radius: 50% 50% var(--radius-lg) var(--radius-lg) / 6rem 6rem var(--radius-lg)
+    var(--radius-lg);
+}
+
+/* Light catching a glazed surface: goes on top of a solid background colour. */
+@utility glaze {
+  background-image:
+    radial-gradient(120% 85% at 12% 0%, rgb(255 255 255 / 0.3), transparent 55%),
+    linear-gradient(180deg, rgb(255 255 255 / 0.05), rgb(0 0 0 / 0.1));
+}
+
+/*
+ * Accordions (<details class="accordion">) open smoothly where the browser
+ * can animate to "auto" height, and simply open everywhere else.
+ */
+:root {
+  interpolate-size: allow-keywords;
+}
+
+.accordion::details-content {
+  block-size: 0;
+  overflow-y: clip;
+  transition:
+    block-size 280ms var(--ease-glaze),
+    content-visibility 280ms allow-discrete;
+}
+
+.accordion[open]::details-content {
+  block-size: auto;
+}
+
+.accordion > summary {
+  list-style: none;
+}
+
+.accordion > summary::-webkit-details-marker {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
